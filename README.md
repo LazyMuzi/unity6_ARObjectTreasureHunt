@@ -1,2 +1,2 @@
-# unity6_proj_1
-Repository for proj_1
+# unity6_ARObjectTreasureHunt
+Repository for ARObjectTreasureHunt
