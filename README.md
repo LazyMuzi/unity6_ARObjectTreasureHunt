@@ -52,7 +52,7 @@ A brief overview of important directories:
 
 ## License
 
-*(Developers: Specify the license under which this project is released, e.g., MIT, Apache 2.0, or proprietary.)*
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
