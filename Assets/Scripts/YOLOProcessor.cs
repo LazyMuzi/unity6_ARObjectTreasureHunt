@@ -76,7 +76,7 @@ public class YOLOProcessor : IModelProcessor
         // GPU 작업 스케줄링 (Blit, ToTensor, Schedule)
         // 이 부분은 예외 발생 가능성이 낮거나, 발생 시 복구가 어려울 수 있음
         float sourceAspect = (float)sourceTexture.width / sourceTexture.height;
-        float targetCanvasAspect = (float)InputWidth / InputHeight;
+        float targetCanvasAspect = (float)InputWidth / InputHeight; 
         Vector2 scale = Vector2.one;
         Vector2 offset = Vector2.zero;
         if (sourceAspect > targetCanvasAspect)
@@ -116,17 +116,17 @@ public class YOLOProcessor : IModelProcessor
                 using var labelIDsOutput = labelIDsOutputTensor.ReadbackAndClone();
                 using var scoresOutput = scoresOutputTensor.ReadbackAndClone();
 
-                int boxesFoundCount = foundBoxes.shape[0];
-                if (boxesFoundCount > 0)
+        int boxesFoundCount = foundBoxes.shape[0];
+        if (boxesFoundCount > 0)
+        {
+            for (int i = 0; i < boxesFoundCount; i++)
+            {
+                float currentScore = scoresOutput[i];
+                detections.Add(new Detection
                 {
-                    for (int i = 0; i < boxesFoundCount; i++)
-                    {
-                        float currentScore = scoresOutput[i];
-                        detections.Add(new Detection
-                        {
-                            Label = labels[labelIDsOutput[i]],
-                            Score = currentScore,
-                            BoundingBox = new Rect(
+                    Label = labels[labelIDsOutput[i]],
+                    Score = currentScore,
+                    BoundingBox = new Rect(
                                 foundBoxes[i, 0] - foundBoxes[i, 2] / 2f, 
                                 foundBoxes[i, 1] - foundBoxes[i, 3] / 2f, 
                                 foundBoxes[i, 2],                         
